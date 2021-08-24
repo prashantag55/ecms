@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+http://www.springframework.org/schema/context
+http://www.springframework.org/schema/context/spring-context-4.3.xsd
+http://www.springframework.org/schema/tx
+http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+
+	<context:property-placeholder
+		location="classpath:resources/database.properties" />
+
+	<context:component-scan
+		base-package="com.ecms.eipl" />
+
+	<tx:annotation-driven
+		transaction-manager="hibernateTransactionManager" />
+
+	<bean id="jspViewResolver"
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="viewClass"
+			value="org.springframework.web.servlet.view.JstlView" />
+		<property name="prefix" value="/WEB-INF/views/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="${database.driver}" />
+		<property name="url" value="${database.url}" />
+		<property name="username" value="${database.user}" />
+		<property name="password" value="${database.password}" />
+	</bean>
+
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="packagesToScan" value="com.ecms.eipl.entity" />
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+				<prop key="hibernate.show_sql">true</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="hibernateTransactionManager"
+		class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean id="ecmsEmployeeService"
+		class="com.ecms.eipl.service.ECMSEmployeeServiceImpl" />
+	<bean id="ecmsClientService"
+		class="com.ecms.eipl.service.ECMSClientServiceImpl" />
+	<bean id="ecmsProjectService"
+		class="com.ecms.eipl.service.ECMSProjectServiceImpl" />
+
+	<bean id="ecmsEmployeeDao"
+		class="com.ecms.eipl.dao.ECMSEmployeeDaoImpl" />
+	<bean id="ecmsClientDao"
+		class="com.ecms.eipl.dao.ECMSClientDaoImpl" />
+	<bean id="ecmsProjectDao"
+		class="com.ecms.eipl.dao.ECMSProjectDaoImpl" />
+
+	<bean id="ecmsPaymentDetailsDao"
+		class="com.ecms.eipl.dao.ECMSPaymentDetailsDaoImpl" />
+
+	<bean id="ecmsClientConverter"
+		class="com.ecms.eipl.converter.ECMSClientConverterImpl" />
+
+	<bean id="ecmsProjectConverter"
+		class="com.ecms.eipl.converter.ECMSProjectConverterImpl" />
+
+	<bean id="ecmsEmployeeConverter"
+		class="com.ecms.eipl.converter.ECMSEmployeeConverterImpl" />
+
+	<bean id="ecmsPaymentDetailsConverter"
+		class="com.ecms.eipl.converter.ECMSPaymentDetailsConverterImpl" />
+</beans>
