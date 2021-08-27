@@ -6,7 +6,9 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 import com.ecms.eipl.data.EmployeeData;
+import com.ecms.eipl.data.SalaryData;
 import com.ecms.eipl.entity.Employee;
+import com.ecms.eipl.entity.Salary;
 
 public class ECMSEmployeeConverterImpl implements ECMSEmployeeConverter {
 
@@ -42,7 +44,7 @@ public class ECMSEmployeeConverterImpl implements ECMSEmployeeConverter {
 
 	@Override
 	public Employee convertEmployeeData(EmployeeData employeeData) {
-		
+
 		Employee employee = new Employee();
 		employee.setCurrentAddress(employeeData.getCurrentAddress());
 		employee.setDesignation(employeeData.getDesignation());
@@ -57,6 +59,22 @@ public class ECMSEmployeeConverterImpl implements ECMSEmployeeConverter {
 		employee.setPermanentAddress(employeeData.getPermanentAddress());
 
 		return employee;
+	}
+
+	@Override
+	public Salary convertSalary(SalaryData salaryData) {
+		Salary salary = new Salary();
+		salary.setAmountPaid(salaryData.getAmountPaid());
+		salary.setAmountTotal(salaryData.getAmountTotal());
+		salary.setDate(salaryData.getDate());
+		salary.setEmpId(salaryData.getEmpId());
+		salary.setOtDays(salaryData.getOtDays());
+		salary.setOtHour(salaryData.getOtHour());
+		salary.setOtMin(salaryData.getOtMin());
+		salary.setSalaryId(salaryData.getSalaryId());
+		salary.setSalarySlip(salaryData.getSalarySlip());
+
+		return salary;
 	}
 
 }

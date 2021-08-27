@@ -57,5 +57,6 @@
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/spring-webmvc-5.2.5.RELEASE.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/stax-ex-1.8.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/txw2-2.3.1.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/itextpdf-5.5.13.2.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

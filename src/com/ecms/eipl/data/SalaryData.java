@@ -10,7 +10,7 @@ public class SalaryData {
 
 	private Date date;
 
-	private String amountTotal;
+	private double amountTotal;
 
 	private double amountPaid;
 
@@ -46,11 +46,11 @@ public class SalaryData {
 		this.date = date;
 	}
 
-	public String getAmountTotal() {
+	public double getAmountTotal() {
 		return amountTotal;
 	}
 
-	public void setAmountTotal(String amountTotal) {
+	public void setAmountTotal(double amountTotal) {
 		this.amountTotal = amountTotal;
 	}
 
