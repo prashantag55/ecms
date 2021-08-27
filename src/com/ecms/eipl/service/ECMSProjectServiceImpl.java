@@ -7,9 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.ecms.eipl.converter.ECMSBillConverter;
 import com.ecms.eipl.converter.ECMSProjectConverter;
 import com.ecms.eipl.dao.ECMSProjectDao;
+import com.ecms.eipl.data.BillsData;
 import com.ecms.eipl.data.ProjectData;
+import com.ecms.eipl.entity.Bills;
 import com.ecms.eipl.entity.Projects;
 
 @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
@@ -46,5 +49,4 @@ public class ECMSProjectServiceImpl implements ECMSProjectService {
 		List<Projects> projectList = ecmsProjectDao.getClientProject(clientId);
 		return ecmsProjectConverter.convertProject(projectList);
 	}
-
 }

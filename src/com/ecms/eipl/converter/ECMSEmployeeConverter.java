@@ -3,7 +3,9 @@ package com.ecms.eipl.converter;
 import java.util.List;
 
 import com.ecms.eipl.data.EmployeeData;
+import com.ecms.eipl.data.SalaryData;
 import com.ecms.eipl.entity.Employee;
+import com.ecms.eipl.entity.Salary;
 
 public interface ECMSEmployeeConverter {
 
@@ -12,4 +14,6 @@ public interface ECMSEmployeeConverter {
 	EmployeeData convertEmployeeDetails(Employee employee);
 
 	Employee convertEmployeeData(EmployeeData employeeData);
+
+	Salary convertSalary(SalaryData salaryData);
 }

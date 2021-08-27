@@ -39,26 +39,44 @@ public class ECMSEmployeeController {
 	}
 
 	@RequestMapping(value = "/add", method = RequestMethod.GET)
-	public ModelAndView addClient(@ModelAttribute("command") EmployeeData employeeData, BindingResult result) {
+	public ModelAndView addEmployee(@ModelAttribute("command") EmployeeData employeeData, BindingResult result) {
 		Map<String, Object> model = new HashMap<String, Object>();
-		model.put("clients", ecmsEmployeeService.listEmployeess());
-		return new ModelAndView("ClientsList", model);
+		return new ModelAndView("employeeList", model);
 	}
 
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
-	public ModelAndView saveClient(@ModelAttribute("command") EmployeeData employeeData, BindingResult result) {
-		List<EmployeeData> clients = ecmsEmployeeService.saveorUpdateEmployeeData(employeeData);
+	public ModelAndView saveEmployee(@ModelAttribute("command") EmployeeData employeeData, BindingResult result) {
+		List<EmployeeData> employeeList = ecmsEmployeeService.saveorUpdateEmployeeData(employeeData);
 		Map<String, Object> model = new HashMap<String, Object>();
-		model.put("clients", clients);
-		return new ModelAndView("ClientsList", model);
+		model.put("employee", employeeList);
+		return new ModelAndView("employeeList", model);
 	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST)
-	public ModelAndView editClient(@ModelAttribute("command") EmployeeData employeeData, BindingResult result) {
-		List<EmployeeData> clients = ecmsEmployeeService.saveorUpdateEmployeeData(employeeData);
+	public ModelAndView editEmployee(@ModelAttribute("command") EmployeeData employeeData, BindingResult result) {
+		List<EmployeeData> employeeList = ecmsEmployeeService.saveorUpdateEmployeeData(employeeData);
 		Map<String, Object> model = new HashMap<String, Object>();
-		model.put("clients", clients);
-		return new ModelAndView("ClientsList", model);
+		model.put("employee", employeeList);
+		return new ModelAndView("employeeList", model);
+	}
+	
+	
+	@RequestMapping(value = "/createSalary", method = RequestMethod.POST)
+	public ModelAndView createEmployeeSalary(@ModelAttribute("command") EmployeeData employeeData, BindingResult result) {
+		
+	List<EmployeeData> employeeList = ecmsEmployeeService.saveorUpdateEmployeeData(employeeData);
+		Map<String, Object> model = new HashMap<String, Object>();
+		model.put("employee", employeeList);
+		return new ModelAndView("employeeList", model);
+	}
+	
+	@RequestMapping(value = "/updateSalary", method = RequestMethod.POST)
+	public ModelAndView updateEmployeeSalary(@ModelAttribute("command") EmployeeData employeeData, BindingResult result) {
+		
+	List<EmployeeData> employeeList = ecmsEmployeeService.saveorUpdateEmployeeData(employeeData);
+		Map<String, Object> model = new HashMap<String, Object>();
+		model.put("employee", employeeList);
+		return new ModelAndView("employeeList", model);
 	}
 
 }

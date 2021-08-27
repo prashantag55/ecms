@@ -47,7 +47,7 @@ public class ECMSClientDaoImpl implements ECMSClientDao {
 		TypedQuery<Clients> query = sessionFactory.getCurrentSession()
 				.createQuery("from Clients where clientId= :clientId");
 		query.setParameter("clientId", clientId);
-		System.out.println("sigle size"+query.getResultList().size());
+		logger.info("Check client details size :" + query.getResultList().size());
 		return query.getResultList().get(0);
 	}
 

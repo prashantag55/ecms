@@ -29,11 +29,8 @@ public class ECMSClientsController {
 	public ModelAndView getClients(@PathVariable(required = false) Integer clientId) {
 
 		Map<String, Object> model = new HashMap<String, Object>();
-		System.out.println("here"+ clientId);
-		logger.info("here "+ clientId);
 		if (clientId != null) {
-			logger.info("here "+ clientId);
-			System.out.println("here"+ clientId);
+			logger.info("Get client Details for client : " + clientId);
 			model.put("clients", ecmsClientService.getClientDetails(clientId));
 			return new ModelAndView("clientDetails", model);
 		} else {

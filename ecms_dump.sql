@@ -55,6 +55,8 @@ DROP TABLE IF EXISTS `associates`;
 CREATE TABLE `associates` (
   `associate_id` int NOT NULL AUTO_INCREMENT,
   `associate_name` varchar(255) NOT NULL,
+  `moblie_number` int DEFAULT NULL,
+  `email` varchar(225) DEFAULT NULL,
   PRIMARY KEY (`associate_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -78,17 +80,18 @@ DROP TABLE IF EXISTS `bills`;
 CREATE TABLE `bills` (
   `invoice_number` int NOT NULL AUTO_INCREMENT,
   `date` date NOT NULL,
-  `fees` decimal(10,0) NOT NULL,
+  `fees` float DEFAULT NULL,
   `client` varchar(255) NOT NULL,
   `project` varchar(255) NOT NULL,
-  `CGST` decimal(10,0) DEFAULT NULL,
-  `SGST` decimal(10,0) DEFAULT NULL,
-  `IGST` decimal(10,0) DEFAULT NULL,
-  `TDS` decimal(10,0) DEFAULT NULL,
-  `type` varchar(255) DEFAULT NULL,
-  `payment_details` int DEFAULT NULL,
+  `CGST` float DEFAULT NULL,
+  `SGST` float DEFAULT NULL,
+  `IGST` float DEFAULT NULL,
+  `TDS` float DEFAULT NULL,
+  `payment_details` varchar(225) DEFAULT NULL,
   `Bill_path` varchar(255) DEFAULT NULL,
   `TDS_paid` tinyint(1) DEFAULT NULL,
+  `payment_mode` varchar(225) DEFAULT NULL,
+  `bill_type` varchar(225) DEFAULT NULL,
   PRIMARY KEY (`invoice_number`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -143,11 +146,11 @@ CREATE TABLE `clients` (
   `client_id` int NOT NULL AUTO_INCREMENT,
   `client_name` varchar(255) NOT NULL,
   `GST_number` varchar(255) NOT NULL,
-  `address` varchar(255) NOT NULL,
-  `website_link` varchar(255) NOT NULL,
-  `primary_emailId` varchar(255) NOT NULL,
-  `other_emailId` varchar(255) NOT NULL,
-  `remarks` varchar(255) NOT NULL,
+  `address` varchar(255) DEFAULT NULL,
+  `website_link` varchar(255) DEFAULT NULL,
+  `primary_emailId` varchar(255) DEFAULT NULL,
+  `other_emailId` varchar(255) DEFAULT NULL,
+  `remarks` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`client_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -231,7 +234,7 @@ CREATE TABLE `employee` (
   `name` varchar(255) NOT NULL,
   `joining_date` date NOT NULL,
   `designation` varchar(255) NOT NULL,
-  `monthly_salary` decimal(10,0) NOT NULL,
+  `monthly_salary` float DEFAULT NULL,
   `email` varchar(225) DEFAULT NULL,
   `last_date` date DEFAULT NULL,
   `current_address` varchar(225) DEFAULT NULL,
@@ -334,6 +337,35 @@ LOCK TABLES `project services` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `project_payment_details`
+--
+
+DROP TABLE IF EXISTS `project_payment_details`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `project_payment_details` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `payment_mode` varchar(255) NOT NULL,
+  `payment_details` varchar(255) NOT NULL,
+  `client` varchar(255) NOT NULL,
+  `amount` float DEFAULT NULL,
+  `Date` date NOT NULL,
+  `project` varchar(255) DEFAULT NULL,
+  `bills` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `project_payment_details`
+--
+
+LOCK TABLES `project_payment_details` WRITE;
+/*!40000 ALTER TABLE `project_payment_details` DISABLE KEYS */;
+/*!40000 ALTER TABLE `project_payment_details` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `projects`
 --
 
@@ -341,18 +373,18 @@ DROP TABLE IF EXISTS `projects`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `projects` (
-  `project_id` int NOT NULL,
+  `project_id` int NOT NULL AUTO_INCREMENT,
   `work_order_status` varchar(255) NOT NULL,
   `project_date` date NOT NULL,
   `project_name` varchar(255) NOT NULL,
   `scope` varchar(255) NOT NULL,
   `agreed_fees` float DEFAULT NULL,
   `client` int DEFAULT NULL,
-  `project_location` varchar(255) NOT NULL,
-  `construction_type` varchar(255) NOT NULL,
-  `project_status` varchar(255) NOT NULL,
-  `project_size` varchar(255) NOT NULL,
-  `tender_value` decimal(10,0) NOT NULL,
+  `project_location` varchar(255) DEFAULT NULL,
+  `construction_type` varchar(255) DEFAULT NULL,
+  `project_status` varchar(255) DEFAULT NULL,
+  `project_size` varchar(255) DEFAULT NULL,
+  `tender_value` float DEFAULT NULL,
   PRIMARY KEY (`project_id`),
   KEY `Projects_fk0` (`client`),
   CONSTRAINT `Projects_fk0` FOREIGN KEY (`client`) REFERENCES `clients` (`client_id`)
@@ -365,6 +397,7 @@ CREATE TABLE `projects` (
 
 LOCK TABLES `projects` WRITE;
 /*!40000 ALTER TABLE `projects` DISABLE KEYS */;
+INSERT INTO `projects` VALUES (1,'Available','2025-07-20','FF Extn Jaipur','EL',25000,1,'Jaipur','Office Interior Fitout','nder Design','11',11);
 /*!40000 ALTER TABLE `projects` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -378,13 +411,14 @@ DROP TABLE IF EXISTS `salary`;
 CREATE TABLE `salary` (
   `emp_id` varchar(255) NOT NULL,
   `Date` date DEFAULT NULL,
-  `amount_total` decimal(10,0) DEFAULT NULL,
-  `amount_paid` decimal(10,0) DEFAULT NULL,
+  `amount_total` float DEFAULT NULL,
+  `amount_paid` float DEFAULT NULL,
   `salary_slip` varchar(255) DEFAULT NULL,
   `OT_days` int DEFAULT NULL,
   `OT_hour` int DEFAULT NULL,
   `OT_min` int DEFAULT NULL,
-  PRIMARY KEY (`emp_id`)
+  `salary_id` int NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`salary_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -406,4 +440,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-08-24 14:04:07
+-- Dump completed on 2021-08-27 22:09:44

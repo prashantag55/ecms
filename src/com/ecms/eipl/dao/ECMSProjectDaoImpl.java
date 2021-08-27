@@ -32,7 +32,6 @@ public class ECMSProjectDaoImpl implements ECMSProjectDao {
 	public List<Projects> getClientProject(int clientId) {
 		TypedQuery<Projects> query = sessionFactory.getCurrentSession().createQuery("from Projects where client = :client");
 		query.setParameter("client", clientId);
-		System.out.println("sigle size"+query.getResultList().size());
 		return query.getResultList();
 	}
 

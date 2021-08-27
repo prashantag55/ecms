@@ -7,6 +7,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.ecms.eipl.entity.Employee;
+import com.ecms.eipl.entity.Salary;
 
 
 public class ECMSEmployeeDaoImpl implements ECMSEmployeeDao {
@@ -26,6 +27,12 @@ public class ECMSEmployeeDaoImpl implements ECMSEmployeeDao {
 
 	public Employee getEmployee(int empid) {
 		return (Employee) sessionFactory.getCurrentSession().get(Employee.class, empid);
+	}
+
+	@Override
+	public void createSalary(Salary salary) {
+		sessionFactory.getCurrentSession().saveOrUpdate(salary);
+		
 	}
 
 }

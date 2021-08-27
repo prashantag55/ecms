@@ -21,7 +21,7 @@ public class Salary {
 	private Date date;
 
 	@Column(name = "amount_total")
-	private String amountTotal;
+	private double amountTotal;
 
 	@Column(name = "amount_paid")
 	private double amountPaid;
@@ -54,11 +54,11 @@ public class Salary {
 		this.date = date;
 	}
 
-	public String getAmountTotal() {
+	public double getAmountTotal() {
 		return amountTotal;
 	}
 
-	public void setAmountTotal(String amountTotal) {
+	public void setAmountTotal(double amountTotal) {
 		this.amountTotal = amountTotal;
 	}
 

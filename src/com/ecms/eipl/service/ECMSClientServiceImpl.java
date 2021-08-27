@@ -46,8 +46,7 @@ public class ECMSClientServiceImpl implements ECMSClientService {
 	@Override
 	public List<ClientsData> listClients() {
 		List<Clients> clients = ecmsClientDao.listClient();
-		System.out.println("clients " + clients.size());
-
+		logger.info("All client List Size : " + clients.size());
 		return ecmsClientConverter.convertClient(clients);
 
 	}
@@ -71,7 +70,6 @@ public class ECMSClientServiceImpl implements ECMSClientService {
 		List<Projects> projectList = ecmsProjectDao.getClientProject(clientId);
 		List<ProjectData> projectDataList = ecmsProjectConverter.convertProject(projectList);
 		clientsData.setProjectDataList(projectDataList);
-
 		return clientsData;
 	}
 }
