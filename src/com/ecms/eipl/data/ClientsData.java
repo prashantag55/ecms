@@ -24,6 +24,8 @@ public class ClientsData {
 	private List<ProjectData> projectDataList;
 	
 	private List<PaymentDetailsData> paymentDetailsDataList;
+	
+	private List<BillsData> billsDataList;
 
 	public List<ProjectData> getProjectDataList() {
 		return projectDataList;
@@ -113,4 +115,13 @@ public class ClientsData {
 		this.remarks = remarks;
 	}
 
+	public List<BillsData> getBillsDataList() {
+		return billsDataList;
+	}
+
+	public void setBillsDataList(List<BillsData> billsDataList) {
+		this.billsDataList = billsDataList;
+	}
+
+	
 }

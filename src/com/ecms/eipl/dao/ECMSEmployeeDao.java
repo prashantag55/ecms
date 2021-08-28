@@ -15,4 +15,6 @@ public interface ECMSEmployeeDao {
 
 	public void createSalary(Salary salary);
 
+	public List<Salary> getEmployeeSalaryList(int employeeId);
+
 }

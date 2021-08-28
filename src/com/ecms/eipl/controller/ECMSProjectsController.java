@@ -42,7 +42,7 @@ public class ECMSProjectsController {
 	public ModelAndView addProject(@ModelAttribute("command") ProjectData projectData, BindingResult result) {
 		Map<String, Object> model = new HashMap<String, Object>();
 		// model.put("clients", ecmsClientService.listClients());
-		return new ModelAndView("ProjectsList", model);
+		return new ModelAndView("projectsList", model);
 	}
 
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
@@ -50,7 +50,7 @@ public class ECMSProjectsController {
 	List<ProjectData> projects= 	ecmsProjectService.saveorUpdateProjectData(projectData);
 		Map<String, Object> model = new HashMap<String, Object>();
 		model.put("projects", projects);
-		return new ModelAndView("ProjectsList", model);
+		return new ModelAndView("projectsDetails", model);
 	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST)
@@ -58,7 +58,7 @@ public class ECMSProjectsController {
 		List<ProjectData> projects= 	ecmsProjectService.saveorUpdateProjectData(projectData);
 		Map<String, Object> model = new HashMap<String, Object>();
 		model.put("projects", projects);
-		return new ModelAndView("ProjectsList", model);
+		return new ModelAndView("projectsDetails", model);
 	}
 
 }

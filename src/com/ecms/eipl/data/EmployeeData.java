@@ -1,6 +1,7 @@
 package com.ecms.eipl.data;
 
 import java.sql.Date;
+import java.util.List;
 
 public class EmployeeData {
 
@@ -25,6 +26,8 @@ public class EmployeeData {
 	private String permanentAddress;
 
 	private int emMobileNumber;
+
+	private List<SalaryData> salaryDataList;
 
 	public int getEmpId() {
 		return empId;
@@ -112,6 +115,14 @@ public class EmployeeData {
 
 	public void setEmMobileNumber(int emMobileNumber) {
 		this.emMobileNumber = emMobileNumber;
+	}
+
+	public List<SalaryData> getSalaryDataList() {
+		return salaryDataList;
+	}
+
+	public void setSalaryDataList(List<SalaryData> salaryDataList) {
+		this.salaryDataList = salaryDataList;
 	}
 
 }

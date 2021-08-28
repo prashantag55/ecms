@@ -33,7 +33,13 @@ public class ECMSEmployeeServiceImpl implements ECMSEmployeeService {
 	@Override
 	public EmployeeData getEmployee(int employeeId) {
 		Employee employee = ecmsEmployeeDao.getEmployee(employeeId);
-		return ecmsEmployeeConverter.convertEmployeeDetails(employee);
+
+		List<Salary> salaryList = ecmsEmployeeDao.getEmployeeSalaryList(employeeId);
+		List<SalaryData> salaryDataList = ecmsEmployeeConverter.convertSalaryList(salaryList);
+
+		EmployeeData employeeData = ecmsEmployeeConverter.convertEmployeeDetails(employee);
+		employeeData.setSalaryDataList(salaryDataList);
+		return employeeData;
 	}
 
 	@Override
@@ -54,27 +60,28 @@ public class ECMSEmployeeServiceImpl implements ECMSEmployeeService {
 					salaryData.getOtHour(), salaryData.getOtMin());
 			salaryData.setAmountTotal(totalAmount);
 
-			Salary salary = ecmsEmployeeConverter.convertSalary(salaryData);
+			Salary salary = ecmsEmployeeConverter.convertSalaryData(salaryData);
 			ecmsEmployeeDao.createSalary(salary);
 		}
 		return null;
 	}
 
 	private double calculateMonthlySalary(double monthlySalary, int otDays, int otHour, int otMin) {
+		double oneDaySalary = monthlySalary * 12 / 365;
 		if (otDays != 0) {
-			double otDaysSalary = (monthlySalary / 30) * otDays;
+			double otDaysSalary = oneDaySalary * otDays;
 			monthlySalary = monthlySalary + otDaysSalary;
 
 		}
 
 		if (otHour != 0) {
-			double otHourSalary = (monthlySalary / 30 * 24) * otHour;
+			double otHourSalary = (oneDaySalary / 24) * otHour;
 			monthlySalary = monthlySalary + otHourSalary;
 
 		}
 
 		if (otDays != 0) {
-			double otMinSalary = (monthlySalary / 30 * 24 * 60) * otMin;
+			double otMinSalary = (oneDaySalary / 24 * 60) * otMin;
 			monthlySalary = monthlySalary + otMinSalary;
 
 		}

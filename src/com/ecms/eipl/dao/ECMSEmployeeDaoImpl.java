@@ -2,6 +2,8 @@ package com.ecms.eipl.dao;
 
 import java.util.List;
 
+import javax.persistence.TypedQuery;
+
 import org.apache.log4j.Logger;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +35,13 @@ public class ECMSEmployeeDaoImpl implements ECMSEmployeeDao {
 	public void createSalary(Salary salary) {
 		sessionFactory.getCurrentSession().saveOrUpdate(salary);
 		
+	}
+
+	@Override
+	public List<Salary> getEmployeeSalaryList(int employeeId) {
+		TypedQuery<Salary> query = sessionFactory.getCurrentSession().createQuery("from Salary where employee = :employee");
+		query.setParameter("employee", employeeId);
+		return query.getResultList();
 	}
 
 }
