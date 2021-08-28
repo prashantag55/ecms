@@ -27,11 +27,12 @@ CREATE TABLE `associate_payment` (
   `invoice_number` varchar(255) NOT NULL,
   `associate` varchar(255) NOT NULL,
   `date` date NOT NULL,
-  `fees` decimal(10,0) NOT NULL,
-  `tds` decimal(10,0) DEFAULT NULL,
-  `GST` decimal(10,0) DEFAULT NULL,
+  `fees` float DEFAULT NULL,
+  `tds` float DEFAULT NULL,
+  `gst` float DEFAULT NULL,
   `payment_mode` varchar(255) NOT NULL,
   `payment_details` varchar(255) NOT NULL,
+  `project` int DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -366,6 +367,32 @@ LOCK TABLES `project_payment_details` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `project_services`
+--
+
+DROP TABLE IF EXISTS `project_services`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `project_services` (
+  `Id` int NOT NULL AUTO_INCREMENT,
+  `projcet` varchar(255) NOT NULL,
+  `service` varchar(255) NOT NULL,
+  `fees` float DEFAULT NULL,
+  `associate` int NOT NULL,
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `project_services`
+--
+
+LOCK TABLES `project_services` WRITE;
+/*!40000 ALTER TABLE `project_services` DISABLE KEYS */;
+/*!40000 ALTER TABLE `project_services` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `projects`
 --
 
@@ -440,4 +467,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-08-27 22:09:44
+-- Dump completed on 2021-08-28 20:27:40

@@ -1,6 +1,7 @@
 package com.ecms.eipl.data;
 
 import java.util.Date;
+import java.util.List;
 
 public class ProjectData {
 
@@ -20,6 +21,14 @@ public class ProjectData {
 	private String projectStatus;
 	private String projectSize;
 	private double tenderValue;
+
+	private List<BillsData> billsDataList;
+
+	private List<ProjectAssociatePaymentData> projectAssociatePaymentDataList;
+
+	private List<ProjectServicesData> projectServicesDataList;
+
+	private List<ProjectPaymentDetailsData> projectPaymentDetailsDataList;
 
 	public int getProjectId() {
 		return projectId;
@@ -116,5 +125,39 @@ public class ProjectData {
 	public void setTenderValue(double tenderValue) {
 		this.tenderValue = tenderValue;
 	}
+
+	public List<BillsData> getBillsDataList() {
+		return billsDataList;
+	}
+
+	public List<ProjectAssociatePaymentData> getProjectAssociatePaymentDataList() {
+		return projectAssociatePaymentDataList;
+	}
+
+	public List<ProjectPaymentDetailsData> getProjectPaymentDetailsDataList() {
+		return projectPaymentDetailsDataList;
+	}
+
+	public void setBillsDataList(List<BillsData> billsDataList) {
+		this.billsDataList = billsDataList;
+	}
+
+	public void setProjectAssociatePaymentDataList(List<ProjectAssociatePaymentData> projectAssociatePaymentDataList) {
+		this.projectAssociatePaymentDataList = projectAssociatePaymentDataList;
+	}
+
+	public void setProjectPaymentDetailsDataList(List<ProjectPaymentDetailsData> projectPaymentDetailsDataList) {
+		this.projectPaymentDetailsDataList = projectPaymentDetailsDataList;
+	}
+
+	public List<ProjectServicesData> getProjectServicesDataList() {
+		return projectServicesDataList;
+	}
+
+	public void setProjectServicesDataList(List<ProjectServicesData> projectServicesDataList) {
+		this.projectServicesDataList = projectServicesDataList;
+	}
+	
+	
 
 }

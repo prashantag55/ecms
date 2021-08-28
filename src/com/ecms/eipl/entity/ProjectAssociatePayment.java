@@ -10,13 +10,14 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "Bills")
-public class Bills {
-
+@Table(name = "associate_payment")
+public class ProjectAssociatePayment {
+	
+	
 	@Id
-	@Column(name = "invoice_number")
+	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private String invoiceNumber;
+	private int id;
 
 	@Column(name = "date")
 	private Date date;
@@ -24,26 +25,17 @@ public class Bills {
 	@Column(name = "fees")
 	private double fees;
 
-	@Column(name = "client")
-	private int client;
+	@Column(name = "associate")
+	private int associate;
 
 	@Column(name = "project")
 	private int project;
 
-	@Column(name = "CGST")
-	private double cgst;
-
-	@Column(name = "SGST")
-	private double sgst;
-
-	@Column(name = "IGST")
-	private double igst;
+	@Column(name = "GST")
+	private double gst;
 
 	@Column(name = "TDS")
 	private double tds;
-
-	@Column(name = "bill_path")
-	private String billPath;
 
 	@Column(name = "payment_mode")
 	private String paymentMode;
@@ -51,17 +43,11 @@ public class Bills {
 	@Column(name = "payment_details")
 	private String paymentDetails;
 
-	@Column(name = "tds_paid")
-	private boolean tdsPaid;
-
-	@Column(name = "bill_type")
-	private String billType;
-
 	@Column(name = "status")
 	private String status;
 
-	public String getInvoiceNumber() {
-		return invoiceNumber;
+	public int getId() {
+		return id;
 	}
 
 	public Date getDate() {
@@ -72,32 +58,20 @@ public class Bills {
 		return fees;
 	}
 
-	public int getClient() {
-		return client;
+	public int getAssociate() {
+		return associate;
 	}
 
 	public int getProject() {
 		return project;
 	}
 
-	public double getCgst() {
-		return cgst;
-	}
-
-	public double getSgst() {
-		return sgst;
-	}
-
-	public double getIgst() {
-		return igst;
+	public double getGst() {
+		return gst;
 	}
 
 	public double getTds() {
 		return tds;
-	}
-
-	public String getBillPath() {
-		return billPath;
 	}
 
 	public String getPaymentMode() {
@@ -108,20 +82,12 @@ public class Bills {
 		return paymentDetails;
 	}
 
-	public boolean isTdsPaid() {
-		return tdsPaid;
-	}
-
-	public String getBillType() {
-		return billType;
-	}
-
 	public String getStatus() {
 		return status;
 	}
 
-	public void setInvoiceNumber(String invoiceNumber) {
-		this.invoiceNumber = invoiceNumber;
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public void setDate(Date date) {
@@ -132,32 +98,20 @@ public class Bills {
 		this.fees = fees;
 	}
 
-	public void setClient(int client) {
-		this.client = client;
+	public void setAssociate(int associate) {
+		this.associate = associate;
 	}
 
 	public void setProject(int project) {
 		this.project = project;
 	}
 
-	public void setCgst(double cgst) {
-		this.cgst = cgst;
-	}
-
-	public void setSgst(double sgst) {
-		this.sgst = sgst;
-	}
-
-	public void setIgst(double igst) {
-		this.igst = igst;
+	public void setGst(double gst) {
+		this.gst = gst;
 	}
 
 	public void setTds(double tds) {
 		this.tds = tds;
-	}
-
-	public void setBillPath(String billPath) {
-		this.billPath = billPath;
 	}
 
 	public void setPaymentMode(String paymentMode) {
@@ -168,17 +122,8 @@ public class Bills {
 		this.paymentDetails = paymentDetails;
 	}
 
-	public void setTdsPaid(boolean tdsPaid) {
-		this.tdsPaid = tdsPaid;
-	}
-
-	public void setBillType(String billType) {
-		this.billType = billType;
-	}
-
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	
 	
 }

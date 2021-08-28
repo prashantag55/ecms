@@ -44,7 +44,7 @@ public class ECMSClientsController {
 	public ModelAndView addClient(@ModelAttribute("command") ClientsData clientsData, BindingResult result) {
 		Map<String, Object> model = new HashMap<String, Object>();
 		model.put("clients", ecmsClientService.listClients());
-		return new ModelAndView("ClientsList", model);
+		return new ModelAndView("clientDetails", model);
 	}
 
 	@RequestMapping(value = "/save", method = RequestMethod.POST)

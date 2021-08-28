@@ -11,6 +11,8 @@ import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.ecms.eipl.entity.Bills;
+import com.ecms.eipl.entity.ProjectAssociatePayment;
+import com.ecms.eipl.entity.ProjectPaymentDetails;
 
 public class ECMSBillDaoImpl implements ECMSBillDao {
 	private static final Logger logger = Logger.getLogger(ECMSBillDaoImpl.class);
@@ -45,6 +47,18 @@ public class ECMSBillDaoImpl implements ECMSBillDao {
 		TypedQuery<Bills> query = sessionFactory.getCurrentSession().createQuery("from Bills where project = :project");
 		query.setParameter("project", projectId);
 		return query.getResultList();
+	}
+
+	@Override
+	public List<ProjectPaymentDetails> getProjectPayment(int projectId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<ProjectAssociatePayment> getAssociatePayment(int projectId) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

@@ -6,7 +6,11 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 import com.ecms.eipl.data.BillsData;
+import com.ecms.eipl.data.ProjectAssociatePaymentData;
+import com.ecms.eipl.data.ProjectPaymentDetailsData;
 import com.ecms.eipl.entity.Bills;
+import com.ecms.eipl.entity.ProjectAssociatePayment;
+import com.ecms.eipl.entity.ProjectPaymentDetails;
 
 public class ECMSBillConverterImpl implements ECMSBillConverter {
 
@@ -62,5 +66,18 @@ public class ECMSBillConverterImpl implements ECMSBillConverter {
 		billsData.setTds(bill.getTds());
 		billsData.setTdsPaid(bill.isTdsPaid());
 		return billsData;
+	}
+
+	@Override
+	public List<ProjectPaymentDetailsData> convertProjectPayment(List<ProjectPaymentDetails> projectPaymentList) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<ProjectAssociatePaymentData> convertAsssociatePayment(
+			List<ProjectAssociatePayment> associatePaymentList) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

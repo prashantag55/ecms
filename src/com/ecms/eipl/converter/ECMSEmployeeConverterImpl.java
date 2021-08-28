@@ -20,7 +20,7 @@ public class ECMSEmployeeConverterImpl implements ECMSEmployeeConverter {
 		for (Employee employee : employeeList) {
 			employeeDataList.add(convertEmployeeDetails(employee));
 		}
-		return null;
+		return employeeDataList;
 	}
 
 	@Override
@@ -62,7 +62,7 @@ public class ECMSEmployeeConverterImpl implements ECMSEmployeeConverter {
 	}
 
 	@Override
-	public Salary convertSalary(SalaryData salaryData) {
+	public Salary convertSalaryData(SalaryData salaryData) {
 		Salary salary = new Salary();
 		salary.setAmountPaid(salaryData.getAmountPaid());
 		salary.setAmountTotal(salaryData.getAmountTotal());
@@ -75,6 +75,31 @@ public class ECMSEmployeeConverterImpl implements ECMSEmployeeConverter {
 		salary.setSalarySlip(salaryData.getSalarySlip());
 
 		return salary;
+	}
+
+	@Override
+	public List<SalaryData> convertSalaryList(List<Salary> salaryList) {
+		List<SalaryData> salaryDataList = new ArrayList<>();
+		for (Salary salary : salaryList) {
+			salaryDataList.add(convertSalary(salary));
+		}
+		return salaryDataList;
+	}
+
+	@Override
+	public SalaryData convertSalary(Salary salary) {
+		SalaryData salaryData = new SalaryData();
+		salaryData.setAmountPaid(salary.getAmountPaid());
+		salaryData.setAmountTotal(salary.getAmountTotal());
+		salaryData.setDate(salary.getDate());
+		salaryData.setEmpId(salary.getEmpId());
+		salaryData.setOtDays(salary.getOtDays());
+		salaryData.setOtHour(salary.getOtHour());
+		salaryData.setOtMin(salary.getOtMin());
+		salaryData.setSalaryId(salary.getSalaryId());
+		salaryData.setSalarySlip(salary.getSalarySlip());
+
+		return salaryData;
 	}
 
 }
