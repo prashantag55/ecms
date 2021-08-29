@@ -16,8 +16,4 @@ public interface ECMSBillDao {
 
 	List<Bills> getProjectBills(int projectId);
 
-	List<ProjectPaymentDetails> getProjectPayment(int projectId);
-
-	List<ProjectAssociatePayment> getAssociatePayment(int projectId);
-
 }

@@ -9,9 +9,9 @@ public interface ECMSProjectService {
 	List<ProjectData> listProjects();
 
 	ProjectData getProjectDetails(int projectId);
-	
+
 	List<ProjectData> getClientProjectList(int clientId);
-	
+
 	public List<ProjectData> saveorUpdateProjectData(ProjectData projectData);
 
 }

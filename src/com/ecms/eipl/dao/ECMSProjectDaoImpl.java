@@ -25,19 +25,25 @@ public class ECMSProjectDaoImpl implements ECMSProjectDao {
 
 	@Override
 	public Projects getProject(int projectId) {
-		return (Projects) sessionFactory.getCurrentSession().get(Projects.class, projectId);
+
+		TypedQuery<Projects> query = sessionFactory.getCurrentSession()
+				.createQuery("from Projects where projectId = :projectId", Projects.class);
+		query.setParameter("projectId", projectId);
+
+		return query.getResultList().get(0);
 	}
 
 	@Override
 	public List<Projects> getClientProject(int clientId) {
-		TypedQuery<Projects> query = sessionFactory.getCurrentSession().createQuery("from Projects where client = :client");
+		TypedQuery<Projects> query = sessionFactory.getCurrentSession()
+				.createQuery("from Projects where client = :client", Projects.class);
 		query.setParameter("client", clientId);
 		return query.getResultList();
 	}
 
 	@Override
 	public List<Projects> getAllProject() {
-		TypedQuery<Projects> query = sessionFactory.getCurrentSession().createQuery("from Projects ");
+		TypedQuery<Projects> query = sessionFactory.getCurrentSession().createQuery("from Projects ", Projects.class);
 		return query.getResultList();
 	}
 

@@ -26,15 +26,15 @@ public class ECMSClientConverterImpl implements ECMSClientConverter {
 
 	@Override
 	public Clients convertClientData(ClientsData clientsData) {
-		Clients Clients = new Clients();
-		Clients.setClientId(clientsData.getClientId());
-		Clients.setAddress(clientsData.getAddress());
-		Clients.setClientName(clientsData.getClientName());
-		Clients.setGstNumber(clientsData.getGstNumber());
-		Clients.setPrimaryEmailId(clientsData.getPrimaryEmailId());
-		Clients.setOtherEmailId(clientsData.getOtherEmailId());
-		Clients.setRemarks(clientsData.getRemarks());
-		Clients.setWebsiteLink(clientsData.getWebsiteLink());
+		Clients clients = new Clients();
+		clients.setClientId(clientsData.getClientId());
+		clients.setAddress(clientsData.getAddress());
+		clients.setClientName(clientsData.getClientName());
+		clients.setGstNumber(clientsData.getGstNumber());
+		clients.setPrimaryEmailId(clientsData.getPrimaryEmailId());
+		clients.setOtherEmailId(clientsData.getOtherEmailId());
+		clients.setRemarks(clientsData.getRemarks());
+		clients.setWebsiteLink(clientsData.getWebsiteLink());
 		List<ContactDetailsData> contactDataList = clientsData.getContactDetailsDataList();
 		List<ContactPerson> contactList = new ArrayList<>();
 		for (ContactDetailsData contactDetailData : contactDataList) {
@@ -44,8 +44,8 @@ public class ECMSClientConverterImpl implements ECMSClientConverter {
 			ContactPerson.setId(contactDetailData.getContactId());
 			contactList.add(ContactPerson);
 		}
-		Clients.setContactPerson(contactList);
-		return null;
+		clients.setContactPerson(contactList);
+		return clients;
 	}
 
 	@Override

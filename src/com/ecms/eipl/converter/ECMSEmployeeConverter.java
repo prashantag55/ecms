@@ -16,7 +16,7 @@ public interface ECMSEmployeeConverter {
 	Employee convertEmployeeData(EmployeeData employeeData);
 
 	Salary convertSalaryData(SalaryData salaryData);
-	
+
 	SalaryData convertSalary(Salary salary);
 
 	List<SalaryData> convertSalaryList(List<Salary> salaryList);

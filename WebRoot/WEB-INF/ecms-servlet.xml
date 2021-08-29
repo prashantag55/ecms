@@ -64,17 +64,28 @@ http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
 
 	<bean id="ecmsClientService"
 		class="com.ecms.eipl.service.ECMSClientServiceImpl" />
+
 	<bean id="ecmsProjectService"
 		class="com.ecms.eipl.service.ECMSProjectServiceImpl" />
+
 	<bean id="ecmsEmployeeService"
 		class="com.ecms.eipl.service.ECMSEmployeeServiceImpl" />
+
 	<bean id="ecmsBillsService"
 		class="com.ecms.eipl.service.ECMSBillsServiceImpl" />
 
+	<bean id="ecmsAssociateService"
+		class="com.ecms.eipl.service.ECMSAssociateServiceImpl" />
+
+	<bean id="ecmsPaymentDetailsService"
+		class="com.ecms.eipl.service.ECMSPaymentDetailsServiceImpl" />
+
 	<bean id="ecmsEmployeeDao"
 		class="com.ecms.eipl.dao.ECMSEmployeeDaoImpl" />
+
 	<bean id="ecmsClientDao"
 		class="com.ecms.eipl.dao.ECMSClientDaoImpl" />
+
 	<bean id="ecmsProjectDao"
 		class="com.ecms.eipl.dao.ECMSProjectDaoImpl" />
 
@@ -82,6 +93,9 @@ http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
 		class="com.ecms.eipl.dao.ECMSPaymentDetailsDaoImpl" />
 
 	<bean id="ecmsBillDao" class="com.ecms.eipl.dao.ECMSBillDaoImpl" />
+
+	<bean id="ecmsAssociateDao"
+		class="com.ecms.eipl.dao.ECMSAssociateDaoImpl" />
 
 	<bean id="ecmsClientConverter"
 		class="com.ecms.eipl.converter.ECMSClientConverterImpl" />
@@ -97,4 +111,7 @@ http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
 
 	<bean id="ecmsBillConverter"
 		class="com.ecms.eipl.converter.ECMSBillConverterImpl" />
+
+	<bean id="ecmsAssociateConverter"
+		class="com.ecms.eipl.converter.ECMSAssociateConverterImpl" />
 </beans>
