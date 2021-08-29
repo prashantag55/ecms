@@ -2,6 +2,7 @@ package com.ecms.eipl.service;
 
 import java.util.List;
 
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Propagation;
@@ -13,9 +14,10 @@ import com.ecms.eipl.data.BillsData;
 import com.ecms.eipl.entity.Bills;
 
 @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-public class ECMSBillsServiceImpl implements ECMSBillsService{
+public class ECMSBillsServiceImpl implements ECMSBillsService {
 
 	private static final Logger logger = Logger.getLogger(ECMSBillsServiceImpl.class);
+
 	@Autowired
 	private ECMSBillDao ecmsBillDao;
 
@@ -25,19 +27,28 @@ public class ECMSBillsServiceImpl implements ECMSBillsService{
 	@Override
 	public List<BillsData> listBills() {
 		List<Bills> billsList = ecmsBillDao.listBills();
-		return ecmsBillConverter.convertBills(billsList);
+		if (CollectionUtils.isNotEmpty(billsList)) {
+			return ecmsBillConverter.convertBills(billsList);
+		}
+		return null;
 	}
 
 	@Override
 	public List<BillsData> getClientBillsList(int clientId) {
 		List<Bills> billsList = ecmsBillDao.getClientBills(clientId);
-		return ecmsBillConverter.convertBills(billsList);
+		if (CollectionUtils.isNotEmpty(billsList)) {
+			return ecmsBillConverter.convertBills(billsList);
+		}
+		return null;
 	}
 
 	@Override
 	public List<BillsData> getProjectBillsList(int projectId) {
 		List<Bills> billsList = ecmsBillDao.getProjectBills(projectId);
-		return ecmsBillConverter.convertBills(billsList);
+		if (CollectionUtils.isNotEmpty(billsList)) {
+			return ecmsBillConverter.convertBills(billsList);
+		}
+		return null;
 	}
 
 	@Override
@@ -46,5 +57,4 @@ public class ECMSBillsServiceImpl implements ECMSBillsService{
 		ecmsBillDao.saveorUpdateBill(bills);
 		return null;
 	}
-
 }

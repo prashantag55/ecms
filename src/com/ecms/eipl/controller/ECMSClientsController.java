@@ -20,10 +20,11 @@ import com.ecms.eipl.service.ECMSClientService;
 @Controller
 @RequestMapping(value = { "/clients", "/clients/{clientId}" })
 public class ECMSClientsController {
-	@Autowired
-	private ECMSClientService ecmsClientService;
 
 	private static final Logger logger = Logger.getLogger(ECMSClientsController.class);
+
+	@Autowired
+	private ECMSClientService ecmsClientService;
 
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView getClients(@PathVariable(required = false) Integer clientId) {
@@ -37,7 +38,6 @@ public class ECMSClientsController {
 			model.put("clients", ecmsClientService.listClients());
 			return new ModelAndView("clientsList", model);
 		}
-
 	}
 
 	@RequestMapping(value = "/add", method = RequestMethod.GET)

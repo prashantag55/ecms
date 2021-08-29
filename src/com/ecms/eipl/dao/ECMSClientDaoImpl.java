@@ -22,7 +22,7 @@ public class ECMSClientDaoImpl implements ECMSClientDao {
 
 	@Override
 	public List<Clients> listClient() {
-		TypedQuery<Clients> query = sessionFactory.getCurrentSession().createQuery("from Clients");
+		TypedQuery<Clients> query = sessionFactory.getCurrentSession().createQuery("from Clients", Clients.class);
 		return query.getResultList();
 
 	}
@@ -37,7 +37,7 @@ public class ECMSClientDaoImpl implements ECMSClientDao {
 			session.saveOrUpdate(contactPerson);
 		}
 		tx.commit();
-		TypedQuery<Clients> query = session.createQuery("from Clients");
+		TypedQuery<Clients> query = session.createQuery("from Clients", Clients.class);
 		return query.getResultList();
 	}
 
@@ -45,7 +45,7 @@ public class ECMSClientDaoImpl implements ECMSClientDao {
 	public Clients getClientDetails(int clientId) {
 
 		TypedQuery<Clients> query = sessionFactory.getCurrentSession()
-				.createQuery("from Clients where clientId= :clientId");
+				.createQuery("from Clients where clientId= :clientId", Clients.class);
 		query.setParameter("clientId", clientId);
 		logger.info("Check client details size :" + query.getResultList().size());
 		return query.getResultList().get(0);

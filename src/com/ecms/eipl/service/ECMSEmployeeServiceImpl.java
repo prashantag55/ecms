@@ -2,6 +2,7 @@ package com.ecms.eipl.service;
 
 import java.util.List;
 
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Propagation;
@@ -33,12 +34,13 @@ public class ECMSEmployeeServiceImpl implements ECMSEmployeeService {
 	@Override
 	public EmployeeData getEmployee(int employeeId) {
 		Employee employee = ecmsEmployeeDao.getEmployee(employeeId);
+		EmployeeData employeeData = ecmsEmployeeConverter.convertEmployeeDetails(employee);
 
 		List<Salary> salaryList = ecmsEmployeeDao.getEmployeeSalaryList(employeeId);
-		List<SalaryData> salaryDataList = ecmsEmployeeConverter.convertSalaryList(salaryList);
-
-		EmployeeData employeeData = ecmsEmployeeConverter.convertEmployeeDetails(employee);
-		employeeData.setSalaryDataList(salaryDataList);
+		if (CollectionUtils.isNotEmpty(salaryList)) {
+			List<SalaryData> salaryDataList = ecmsEmployeeConverter.convertSalaryList(salaryList);
+			employeeData.setSalaryDataList(salaryDataList);
+		}
 		return employeeData;
 	}
 
@@ -68,22 +70,20 @@ public class ECMSEmployeeServiceImpl implements ECMSEmployeeService {
 
 	private double calculateMonthlySalary(double monthlySalary, int otDays, int otHour, int otMin) {
 		double oneDaySalary = monthlySalary * 12 / 365;
+
 		if (otDays != 0) {
 			double otDaysSalary = oneDaySalary * otDays;
 			monthlySalary = monthlySalary + otDaysSalary;
-
 		}
 
 		if (otHour != 0) {
 			double otHourSalary = (oneDaySalary / 24) * otHour;
 			monthlySalary = monthlySalary + otHourSalary;
-
 		}
 
 		if (otDays != 0) {
 			double otMinSalary = (oneDaySalary / 24 * 60) * otMin;
 			monthlySalary = monthlySalary + otMinSalary;
-
 		}
 
 		double salary = Math.round(monthlySalary);

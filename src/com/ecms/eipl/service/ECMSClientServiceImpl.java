@@ -2,27 +2,19 @@ package com.ecms.eipl.service;
 
 import java.util.List;
 
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.ecms.eipl.converter.ECMSBillConverter;
 import com.ecms.eipl.converter.ECMSClientConverter;
-import com.ecms.eipl.converter.ECMSPaymentDetailsConverter;
-import com.ecms.eipl.converter.ECMSProjectConverter;
-import com.ecms.eipl.dao.ECMSBillDao;
 import com.ecms.eipl.dao.ECMSClientDao;
-import com.ecms.eipl.dao.ECMSPaymentDetailsDao;
-import com.ecms.eipl.dao.ECMSProjectDao;
 import com.ecms.eipl.data.BillsData;
 import com.ecms.eipl.data.ClientsData;
 import com.ecms.eipl.data.PaymentDetailsData;
 import com.ecms.eipl.data.ProjectData;
-import com.ecms.eipl.entity.Bills;
 import com.ecms.eipl.entity.Clients;
-import com.ecms.eipl.entity.PaymentDetails;
-import com.ecms.eipl.entity.Projects;
 
 @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 public class ECMSClientServiceImpl implements ECMSClientService {
@@ -36,29 +28,22 @@ public class ECMSClientServiceImpl implements ECMSClientService {
 	private ECMSClientConverter ecmsClientConverter;
 
 	@Autowired
-	private ECMSProjectDao ecmsProjectDao;
+	private ECMSProjectService ecmsProjectService;
 
 	@Autowired
-	private ECMSProjectConverter ecmsProjectConverter;
+	private ECMSBillsService ecmsBillsService;
 
 	@Autowired
-	private ECMSBillDao ecmsBillDao;
-
-	@Autowired
-	private ECMSBillConverter ecmsbillConverter;
-
-	@Autowired
-	private ECMSPaymentDetailsDao ecmsPaymentDetailsDao;
-
-	@Autowired
-	private ECMSPaymentDetailsConverter ecmsPaymentDetailsConverter;
+	private ECMSPaymentDetailsService ecmsPaymentDetailsService;
 
 	@Override
 	public List<ClientsData> listClients() {
 		List<Clients> clients = ecmsClientDao.listClient();
 		logger.info("All client List Size : " + clients.size());
-		return ecmsClientConverter.convertClient(clients);
-
+		if (CollectionUtils.isNotEmpty(clients)) {
+			return ecmsClientConverter.convertClient(clients);
+		}
+		return null;
 	}
 
 	@Override
@@ -74,19 +59,20 @@ public class ECMSClientServiceImpl implements ECMSClientService {
 		Clients clients = ecmsClientDao.getClientDetails(clientId);
 		ClientsData clientsData = ecmsClientConverter.convertClientDetails(clients);
 
-		List<PaymentDetails> paymentList = ecmsPaymentDetailsDao.getAllPayments(clientId);
-		List<PaymentDetailsData> paymentDetailsDataList = ecmsPaymentDetailsConverter
-				.convertPaymentDetails(paymentList);
-		clientsData.setPaymentDetailsDataList(paymentDetailsDataList);
+		List<ProjectData> projectDataList = ecmsProjectService.getClientProjectList(clientId);
+		if (CollectionUtils.isNotEmpty(projectDataList)) {
+			clientsData.setProjectDataList(projectDataList);
 
-		List<Projects> projectList = ecmsProjectDao.getClientProject(clientId);
-		List<ProjectData> projectDataList = ecmsProjectConverter.convertProject(projectList);
-		clientsData.setProjectDataList(projectDataList);
+			List<PaymentDetailsData> paymentDetailsDataList = ecmsPaymentDetailsService.getAllClientPayments(clientId);
+			if (CollectionUtils.isNotEmpty(paymentDetailsDataList)) {
+				clientsData.setPaymentDetailsDataList(paymentDetailsDataList);
+			}
 
-		List<Bills> billList = ecmsBillDao.getClientBills(clientId);
-		List<BillsData> billDataList = ecmsbillConverter.convertBills(billList);
-		clientsData.setBillsDataList(billDataList);
-
+			List<BillsData> billDataList = ecmsBillsService.getClientBillsList(clientId);
+			if (CollectionUtils.isNotEmpty(billDataList)) {
+				clientsData.setBillsDataList(billDataList);
+			}
+		}
 		return clientsData;
 	}
 }

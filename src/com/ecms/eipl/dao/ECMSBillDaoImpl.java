@@ -11,10 +11,9 @@ import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.ecms.eipl.entity.Bills;
-import com.ecms.eipl.entity.ProjectAssociatePayment;
-import com.ecms.eipl.entity.ProjectPaymentDetails;
 
 public class ECMSBillDaoImpl implements ECMSBillDao {
+	
 	private static final Logger logger = Logger.getLogger(ECMSBillDaoImpl.class);
 
 	@Autowired
@@ -22,7 +21,7 @@ public class ECMSBillDaoImpl implements ECMSBillDao {
 
 	@Override
 	public List<Bills> listBills() {
-		TypedQuery<Bills> query = sessionFactory.getCurrentSession().createQuery("from Bills");
+		TypedQuery<Bills> query = sessionFactory.getCurrentSession().createQuery("from Bills", Bills.class);
 		return query.getResultList();
 	}
 
@@ -37,28 +36,18 @@ public class ECMSBillDaoImpl implements ECMSBillDao {
 
 	@Override
 	public List<Bills> getClientBills(int clientId) {
-		TypedQuery<Bills> query = sessionFactory.getCurrentSession().createQuery("from Bills where client = :client");
+		TypedQuery<Bills> query = sessionFactory.getCurrentSession().createQuery("from Bills where client = :client",
+				Bills.class);
 		query.setParameter("client", clientId);
 		return query.getResultList();
 	}
 
 	@Override
 	public List<Bills> getProjectBills(int projectId) {
-		TypedQuery<Bills> query = sessionFactory.getCurrentSession().createQuery("from Bills where project = :project");
+		TypedQuery<Bills> query = sessionFactory.getCurrentSession().createQuery("from Bills where project = :project",
+				Bills.class);
 		query.setParameter("project", projectId);
 		return query.getResultList();
-	}
-
-	@Override
-	public List<ProjectPaymentDetails> getProjectPayment(int projectId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<ProjectAssociatePayment> getAssociatePayment(int projectId) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 }

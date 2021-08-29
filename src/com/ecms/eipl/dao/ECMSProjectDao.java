@@ -11,8 +11,7 @@ public interface ECMSProjectDao {
 	public void saveorUpdateProject(Projects project);
 
 	public Projects getProject(int projectId);
-	
-	List<Projects> getAllProject();
 
+	List<Projects> getAllProject();
 
 }

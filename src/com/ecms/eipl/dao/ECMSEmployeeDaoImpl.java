@@ -11,20 +11,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.ecms.eipl.entity.Employee;
 import com.ecms.eipl.entity.Salary;
 
-
 public class ECMSEmployeeDaoImpl implements ECMSEmployeeDao {
 
 	private static final Logger logger = Logger.getLogger(ECMSEmployeeDaoImpl.class);
 	@Autowired
 	private SessionFactory sessionFactory;
-	
-	public void saveorUpdateEmployee(Employee employee) {		
+
+	public void saveorUpdateEmployee(Employee employee) {
 		sessionFactory.getCurrentSession().saveOrUpdate(employee);
 	}
 
 	@SuppressWarnings("unchecked")
 	public List<Employee> listEmployeess() {
-		return (List<Employee>) sessionFactory.getCurrentSession().createCriteria(Employee.class).list();
+		return (List<Employee>) sessionFactory.getCurrentSession().createQuery("from Employee ", Employee.class);
 	}
 
 	public Employee getEmployee(int empid) {
@@ -34,12 +33,13 @@ public class ECMSEmployeeDaoImpl implements ECMSEmployeeDao {
 	@Override
 	public void createSalary(Salary salary) {
 		sessionFactory.getCurrentSession().saveOrUpdate(salary);
-		
+
 	}
 
 	@Override
 	public List<Salary> getEmployeeSalaryList(int employeeId) {
-		TypedQuery<Salary> query = sessionFactory.getCurrentSession().createQuery("from Salary where employee = :employee");
+		TypedQuery<Salary> query = sessionFactory.getCurrentSession()
+				.createQuery("from Salary where employee = :employee", Salary.class);
 		query.setParameter("employee", employeeId);
 		return query.getResultList();
 	}
